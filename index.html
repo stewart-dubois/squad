@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<!-- 
+    squad - oct. 2024
+
+    build. fight. dough. upgrade. repeat.
+
+    this is the best game on khan academy.
+    u don't have to believe. go hate kid.
+        just don't act like i care.
+
+    t&t: """
+    je t'ai dit que c'était mieux que la démo. 
+    yes, ik it's hard. get over it.
+    """
+
+    started: 21/8/2023
+    hiatus from 12/9/2023 to 9/7/2024
+    finished: ../../2024
+    released: ../10/2024
+    total work days: 11
+-->
+<!--
+    TODO:
+        fix bullet-ally & bullet-block collisions
+        enemy movement
+            cover - look for nearest safe spot to take cover from enemy fire
+            ambush - team up w closest ally to surround a lone enemy
+            snipe - wait in a safe position on a map to fire from
+                + must know when people r comin' when in this position to switch to evade to go snipe somewhere else
+            evade (pre-snipe/post-snipe) - try to run as fast as possible from enemies chasin' u
+            target - focus on one enemy
+            defend - protect a unit or area, fire on any units that come close
+            nervous breakdown (post-ambush) - fire at short-range then long-range
+        guns
+        enemy decision makin'
+        dough | shop (basics) | gui | score | achievements
+        maps | arena w map selection (random as option) | plot | missions + mission menu
+        card system (packs) | stats | save system | multiplayer (fight other squads)
+        character art | textures (breakable block needs diff sprites for diff levels of damage) | loadin'
+        menu | intro screen where u pick the original squad | tutorial
+        fullscreen | hide traces of creator (squad/canvas.js & squad/collision.js & squad/squad.js)
+            https://github.com/stewart-dubois/squad
+            get more ep
+        demo 
+            just normal enemies usin' basic guns on target mode w/o player + gui just to show mini-map + number of allies/enemies left
+            restart button on end screen.
+            caption: """
+                the real game is so much better.
+            """
+            t&t: """
+                **abonnez-vous ici** (_subscribe here_)
+            """
+        (performance when game)
+        (responsiveness when menus/cards/shop)
+
+    maps
+        level design theory - https://critpoints.net/2018/02/18/good-fps-map-design/
+        circular loop 'round map
+        shortcuts across
+        always have an alternative path open
+        3 large outer loops w smaller inner loops
+
+    ideas:
+        5v6 to start an' up to 8v10
+        add more cards to user team by purchasin' slots w dough
+        cpu adds additional allies after a certain leve
+
+    needs:  
+        weapons
+            - rpg
+            - shotgun
+            - glock
+            - rifle
+            - smg
+            - uzi
+            - skuzi [goated]
+            - sniper
+            
+        bullets
+            - color-coded
+            - trackin' (pathfindin')
+            
+        player
+            - shootin' mechanic from LOST
+            - actions
+                + interact with allies; otherwise, let cpu assess situation
+                + no weapon swap.
+                
+        menu
+            - dope buttons in arc on top
+                + each button comes down in the arc when u hover
+            - title in arc opposite buttons
+            - conveyor of character art in the center
+
+        transition
+            - bullet holes in scene -> falls over
+    
+    log:
+        aug. 21
+            outline
+            engine
+                how the heck do you start this monstrosity?!
+                like what do you even do with it, ;-;
+                argh. time to look at some ol' projex of mine.
+                oooonnn secooond thoooooought, BAD IDEA.
+                do it normally.
+                ditch engine.
+                that makes hades look like a vacation.
+            qiao/pathfinding
+                found on gh
+                installed node/npm
+                ran `npm install -g browserify` [shouldn't need to do this again]
+                ran `npm install pathfinding`
+                created main.js
+                    ```javascript
+                    var pathfinding = require("pathfinding");
+                    global.window.pathfinding = pathfinding
+                    ```
+                ran `browserify main.js -o bundle.js`
+                imported bundle.js to github (thelegendski/ai)
+                done.
+        sep. 5
+            physix
+                took weeks to make proper progress
+                still don't know how or why it works.
+                but it does.
+                basic collisions implemented
+                player bounces off blocks.
+        sep. 6
+            bullets
+                done, i think. basic, basic implementation.
+            gun
+                this is new, o.O
+            effects
+                idk why these won't work, o.O
+                stupid me, xD
+                forgot to set specs.size in arguments 
+                    for constructor
+            enemies
+                whee
+        sep. 7
+            enemies
+                yep. puttin' a halt on this for now.
+                hopefully, come back to it later today.
+            physix
+                why does it get stuck at these weird angles, o.O?
+                yuck. i hate the patch 'cuz it doesn't solve
+                    squat, but hey, it works.
+        sep. 8
+            enemies
+                back at it.
+                noooope xDDD
+            physix
+                so i haven't solved the problem, ;-;
+                screw bouncy :joy:
+                it works just fine, o.o huhh?!?!?!?
+            enemies
+                we at it again bois
+                so i got pathfindin' to work-ish
+                    need to prove that the arrays are the same
+        sep. 11
+            pathfindin' is awful. i hate this.
+        sep. 12
+            pathfindin'
+                complete.
+            physix
+                complete:
+                    enemy-bullet
+                    enemy-enemy
+                    player-enemy
+                    player-block
+                    enemy-block
+                    block-bullet
+            npc - *TODO*
+                from Levi F. here
+                    https://www.khanacademy.org/cs/-/6591702259515392
+                dodge - adjusts velocity vector angle
+                    check for any nearby bullets
+                        point-to-line-segment
+                            segment is from current position
+                            to position + velocity
+                    adjust position based on bullets
+                aim - adjusts position vector angle
+                    determine best entity to shoot at
+                    adjust position based on current entity
+                        velocity
+        nov. 20
+            gettin' back to it
+            so i have some ideas.
+            they aren't good ideas.
+            but like, ideas lol.
+            so, what if movement is based on a vector.
+            vector or <mag, ang> rather than <x, y>
+            ik. ik. that isn't conventional.
+            but like, it might solve my problem?
+            would need to weight dodgin' less than pf.
+            then convert vector to <x, y> an' done.
+            wonder if that could be a sick game idea.
+            mouse or spacebar only.
+            only control mag an' angle.
+            like mini putt.
+            but like a platformer.
+            top-down platformer lol.
+            idk the mechanics of that.
+            would it be a sine wave velocity?
+            or like just a constant acc?
+            idk not important lol.
+            
+            dodgin'
+                weight based on (threshold - dist) / threshold
+            aimin'
+            
+            need to rethink the tier system.
+            take some ideas from Argon's Escape 2?
+                
+            changed speed, reload, an' damage of bullets
+            player should not be faster than the bullets lol
+
+        jul. 9 - jul. 10 morn
+            it's been nearly a yr.
+            let's get into it.
+
+            patched ski.js to work w chrome 118+
+            adjusted src att of script tags to match ski.js dir change
+            fixed circle-rect collisions for player by forcin' velocity to be zero against a block
+            added raymarchin' func
+            used raymarchin' to determine if pathfindin' is necessary instead of line-rect collisions w every block (hopefully faster for larger maps)
+            fixed bullet-enemy collisions to use two circle-circle collide calls instead of one circle-line call
+            fixed small pathfindin' issue
+            made enemies a child of npc class
+            predictive aimin' for npc (FIRST TRY)
+            added acceleration to enemy movement (SECOND TRY)
+            enemies now stop at certain distance from player given that there's nothin' between them an' the player (snipers r gon' be wild)
+            moved to developin' in vs code
+            yay, it's responsive. workin' on fullscreen in vsc live server
+            oh an' added a google font + init function
+        jul. 10
+            gave up on dodgin', i don't think it could possibly work w smooth movement
+            the enemy will just be mad aggressive w the shootin'
+            okay so maybe they do need to learn how to dodge, or smth w their movement, it might be too fast-paced atm an' robotic (ykwim)
+            enemies now found players based on a weighted system for distance an' health
+            enemies now handle targets better
+            did some housekeepin'
+            restructured the whole project so that it flows better
+            added entity class (first time doin' this) which includes player & npcs
+            fixed camera to move to next living entity after player dies
+            added system to only allow one-on-one enemy lock-on
+            well, i said i couldn't do real-time pathfindin'
+            that it was impossible.
+            i just did.
+            GET OUT OF HERE. I'M THE GOOOOAAATTTTTTTTTT.
+            WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!
+            ggs kids. u'll never get to this level
+            okayyyy, this game is insanely hard.
+            like next-to-impossible to beat
+        jul. 11
+            added mini-map, whee
+            so bullet-block collisions r wonky, need to fix those
+            then bullet-ally collisions
+            i think i discovered that the cpu is smarter than most players
+            so i just looked it up an' level design theory exists
+            time to implement that
+            planned out the rest of the project. this release is goin' to go crazy.
+        jul. 12
+            workin' on some more updates.
+            added breakable blocks an' round animation + magazine clip/reload.
+            time to work on collisions.
+-->
+<!-- <!DOCTYPE html> -->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>squad</title>
+    </head>
+    <body style="margin: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; width: 100vw; height: 100vh;">
+        <canvas></canvas>
+        <script src="https://cdn.jsdelivr.net/gh/thelegendski/ski.js@1.9.x/src/main.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/thelegendski/ski.js@1.9.x/src/addons/print.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/thelegendski/ski.js@1.9.x/src/addons/collision.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/thelegendski/ai@0.0.1/bundle.js"></script>
+        <script type="module" src = "./squad.js"></script>
+    </body>
+</html>
