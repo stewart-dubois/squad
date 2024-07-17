@@ -100,7 +100,7 @@ const complexes = {
             "bbbbbbbbbbbbbbbbbbbbbbb",
         ]
             */
-           
+           /*
             "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
             "b           b               b                b",
             "b  p                        b                b",
@@ -147,8 +147,8 @@ const complexes = {
             "b   b                                        b",
             "b   b                                        b",
             "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-            
-           /*
+            */
+           
            "bbbbbbb",
            "b e   b",
            "b     b",
@@ -158,7 +158,7 @@ const complexes = {
            "b     b",
            "b   a b",
            "bbbbbbb",
-           */
+           
         ],
     ],
     load (complex) {
@@ -293,14 +293,14 @@ class Entity {
             
         })
         projectiles.forEach(p => {
-            if(p.team !== this.team && collision.circleLine.collide(this, p, {x: p.x + p.vel.x, y: p.y + p.vel.y})){
+            if(collision.circleLine.collide(this, p, {x: p.x + p.vel.x, y: p.y + p.vel.y})){
                 let res = Entity.onPoint(p, this)
                 p.kill({
                     x: res.x,
                     y: res.y,
                     color: color(225, 125, 125)
                 })
-                this.health -= p.damage
+                if(p.team !== this.team) this.health -= p.damage
             }
         })
     }
@@ -632,7 +632,7 @@ class Gun {
         }
     }
     fire (ang) {
-        let gun = { x: this.unit.x + cos(ang) * (this.unit.size / 2 + 5), y: this.unit.y + sin(ang) * (this.unit.size / 2 + 5) }
+        let gun = { x: this.unit.x + cos(ang) * (this.unit.size + BULLET_SIZE) / 2, y: this.unit.y + sin(ang) * (this.unit.size + BULLET_SIZE) / 2 }
         if(this.rofTimer <= 0){
             Bullet.new(gun.x, gun.y, {
                 ang: ang + random(-3, 3),
@@ -710,7 +710,7 @@ class Block {
     collide () {
         projectiles.forEach((p) => {
             // first check - collide with block
-            if(collision.circleRect.collide(p, this, 0)) p.kill()
+            if(collision.pointRect.collide(p, this)) p.kill()
         })
     }
     all () {
